@@ -34,6 +34,8 @@ Once the script is working, you can integrate it into your deploy pipeline. For 
     echo Building Hugo
     hugo
     /bin/bash ./oinkdeploy.sh
+## Isn't FTP insecure?
+Not hugely, at least if you're using Porkbun Static Hosting. Porkbun requires TLS encryption to connect, and we've signed our FTP server with a proper certificate for the porkbun.com domain. lftp will fail with a scary error if it doesn't see a properly-signed TLS certificate. 
 
 ## Alternatives
 We're not saying oinkdeploy.sh is the best way to deploy a website to Porkbun Static Hosting, just maybe the easiest. If you're anything like us, you like quick-and-dirty solutions. However, oinkdeploy.sh is inefficient, and there's no version control. Here's some other ways to deploy to Porkbun Static Hosting that might work better for your use case:
