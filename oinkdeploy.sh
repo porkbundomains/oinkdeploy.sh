@@ -1,16 +1,29 @@
 #!/bin/bash
-ftpusername='same as the domain name'
-ftppassword='generate this from the static hosting settings page'
-ftpserver='pixie-ftp.porkbun.com'
+if ! command -v lftp &> /dev/null; then
+    echo "lftp is not installed."
+    exit 1
+fi
+
+read -p "Enter FTP server address (default: pixie-ftp.porkbun.com): " ftpserver
+ftpserver=${ftpserver:-pixie-ftp.porkbun.com}
+
+while [[ -z "$ftpusername" ]]; do
+    read -p "Enter FTP username: " ftpusername
+done
+
+read -s -p "Enter FTP password: " ftppassword
+echo
+
+# Modify below to suit your needs:
+
 localfolder='public/'
 remotefolder='/'
 
-
-echo Wiping old site
-lftp -c "open ftp://$ftpusername:$ftppassword@$ftpserver \
-echo Deleting files from server; \
-rm -rf .; \
-echo Mirroring; \
+echo "Wiping old site"
+lftp -c "open ftp://$ftpusername:$ftppassword@$ftpserver && \
+echo 'Deleting files from server' && \
+rm -rf . && \
+echo 'Mirroring' && \
 mirror -R --parallel=3 $localfolder $remotefolder"
 
 echo Done

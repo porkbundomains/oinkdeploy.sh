@@ -7,17 +7,14 @@ With oinkdeploy.sh, you can instantly deploy a site to Porkbun Static Hosting (o
 lftp must be installed for this script to work. Fortunately, it's pre-installed on MacOS and most modern Linuxes.
 
 ## Install
-Copy oinkdeploy.sh to its permanent home. Remember that oinkdeploy.sh will contain username/password info, so you want to put it somewhere where it will never accidentally be bundled into your static site and uploaded. 
+Copy oinkdeploy.sh to its permanent home. You want to put it somewhere where it will never accidentally be bundled into your static site and uploaded.
 
 Once placed, open in your favorite text editor to configure oinkdeploy.sh. Here's a sample config section:
 
-    ftpusername='mydomain.biz'
-    ftppassword='72HabU22^l92n6kZ'
-    ftpserver='pixie-ftp.porkbun.com'
     localfolder='public/'
     remotefolder='/'
 
-If you're using Porkbun Static Hosting, ftpusername will simply be the domain name the site's hosted on; ftppassword can be copy/pasted from the static hosting config page under **FTP Credentials**. We left in Porkbun's static hosting server as the default.
+If you're using Porkbun Static Hosting, your FTP Username will simply be the domain name the site's hosted on; FTP Server can be copy/pasted from the static hosting config page under **FTP Credentials**. We left in Porkbun's static hosting server as the default so just press Enter when prompted.
 
 Localfolder is set to `public/` (that's what Hugo uses for its static assets), but it can be any folder. The remotefolder is set to `/` but other web hosts, you may have to do `www` or `public_html` to get it to work.
 ## Run oinkdeploy.sh
@@ -34,6 +31,7 @@ Once the script is working, you can integrate it into your deploy pipeline. For 
     echo Building Hugo
     hugo
     /bin/bash ./oinkdeploy.sh
+    
 ## Isn't FTP insecure?
 Not hugely, at least if you're using Porkbun Static Hosting. Porkbun requires TLS encryption to connect, and we've signed our FTP server with a proper certificate for the porkbun.com domain. lftp will fail with a scary error if it doesn't see a properly-signed TLS certificate. 
 
