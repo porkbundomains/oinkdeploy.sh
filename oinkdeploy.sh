@@ -4,14 +4,14 @@ if ! command -v lftp &> /dev/null; then
     exit 1
 fi
 
-read -p "Enter FTP server address (default: pixie-ftp.porkbun.com): " ftpserver
+read -r -p "Enter FTP server address (default: pixie-ftp.porkbun.com): " ftpserver
 ftpserver=${ftpserver:-pixie-ftp.porkbun.com}
 
 while [[ -z "$ftpusername" ]]; do
-    read -p "Enter FTP username: " ftpusername
+    read -r -p "Enter FTP username: " ftpusername
 done
 
-read -s -p "Enter FTP password: " ftppassword
+read -r -s -p "Enter FTP password: " ftppassword
 echo
 
 # Modify below to suit your needs:
